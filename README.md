@@ -10,7 +10,6 @@
 **Nathan Herling**  
 **Project:** _A Temporal Analysis of Meteorite Findings_
 
-    </td>
   </tr>
 </table>
 

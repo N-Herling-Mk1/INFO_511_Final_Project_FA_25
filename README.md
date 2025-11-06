@@ -1,9 +1,25 @@
+<div style="
+  border: 2px solid limegreen;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  background: #f8fff8;
+">
 
-<img src="Images_/0_class_image_2.png" alt="Class image example" align="left" width="140" style="margin-right:1rem; border-radius:8px; border:1px solid #e5e7eb;" />
+  <img src="Images_/0_class_image_2.png"
+       alt="Class image example"
+       width="120"
+       style="margin-right: 1rem; border-radius: 8px; border: 1px solid #c5f7c5;" />
 
-# INFO 511 • Final Project (FA 25)
+  <div>
+    <h1 style="margin: 0; color: #065f46;">INFO 511 • Final Project (FA 25)</h1>
+    <p style="margin: 0.3rem 0 0 0;"><strong>Nathan Herling</strong></p>
+    <p style="margin: 0;">Project:<br><em>A temporal analysis of Meteorite findings.</em></p>
+  </div>
 
-<br clear="left"/>
+</div>
 
 ---
 

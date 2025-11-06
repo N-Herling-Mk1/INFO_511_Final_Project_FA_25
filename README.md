@@ -1,30 +1,19 @@
-<div style="
-  border: 2px solid limegreen;
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  background: #f8fff8;
-">
+<table>
+  <tr>
+    <td style="vertical-align: top; padding-right: 12px;">
+      <img src="Images_/0_class_image_2.png" alt="INFO 511 logo" width="120">
+    </td>
+    <td style="vertical-align: top;">
+      
+# INFO 511 • Final Project (FA 25)
 
-  <img src="Images_/0_class_image_2.png"
-       alt="INFO 511 logo"
-       width="120"
-       style="margin-right: 1.5rem; border-radius: 10px; border: 1px solid #baf7ba;" />
+**Nathan Herling**  
+**Project:** _A Temporal Analysis of Meteorite Findings_
 
-  <div>
-    <h1 style="margin: 0; font-size: 1.8rem; color: #064e3b;">
-      INFO 511 • Final Project (FA 25)
-    </h1>
-    <p style="margin: 0.4rem 0 0 0; font-weight: 700; font-size: 1.2rem;">Nathan Herling</p>
-    <p style="margin: 0.2rem 0 0 0; font-size: 1.05rem;">
-      <strong>Project:</strong><br>
-      <em>A Temporal Analysis of Meteorite Findings</em>
-    </p>
-  </div>
+    </td>
+  </tr>
+</table>
 
-</div>
 ---
 
 ## 📁 Directory Structure

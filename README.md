@@ -1,6 +1,9 @@
 # INFO 511 • Final Project (FA 25)
+<img src="Images_/0_class_image_2.png" alt="Class image example" align="left" width="140" style="margin-right:1rem; border-radius:8px; border:1px solid #e5e7eb;" />
 
 A concise, well-structured README to orient readers to the repository layout and key assets.
+
+<br clear="left"/>
 
 ---
 
@@ -18,29 +21,6 @@ INFO_511_Final_Project_FA_25/
 ├─ Scripts_/               # notebooks, analysis scripts, utilities
 └─ README.md
 ```
-
----
-
-## 🖼️ Key Images
-
-### Option A — Side-by-side (HTML; works on GitHub)
-<div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
-  <figure style="margin:0;">
-    <img src="Images_/0_class_image_2.png" alt="Class image example" style="max-width:480px; width:100%; height:auto; border:1px solid #e5e7eb; border-radius:8px;" />
-    <figcaption style="font-size:0.9rem; color:#4b5563; margin-top:6px;">Figure 1. Class image example</figcaption>
-  </figure>
-  <figure style="margin:0;">
-    <img src="Images_/Make the Arizona “A”.png" alt="Make the Arizona A" style="max-width:480px; width:100%; height:auto; border:1px solid #e5e7eb; border-radius:8px;" />
-    <figcaption style="font-size:0.9rem; color:#4b5563; margin-top:6px;">Figure 2. “Make the Arizona A”</figcaption>
-  </figure>
-</div>
-
-### Option B — Plain Markdown (one per line)
-![Class image example](Images_/0_class_image_2.png)
-
-![“Make the Arizona A”](Images_/Make%20the%20Arizona%20%E2%80%9CA%E2%80%9D.png)
-
-> If the filename with smart quotes gives trouble on your platform, consider renaming it to `Make_the_Arizona_A.png` and updating the path accordingly.
 
 ---
 

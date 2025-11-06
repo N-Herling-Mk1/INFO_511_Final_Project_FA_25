@@ -1,7 +1,7 @@
-# INFO 511 • Final Project (FA 25)
+
 <img src="Images_/0_class_image_2.png" alt="Class image example" align="left" width="140" style="margin-right:1rem; border-radius:8px; border:1px solid #e5e7eb;" />
 
-A concise, well-structured README to orient readers to the repository layout and key assets.
+# INFO 511 • Final Project (FA 25)
 
 <br clear="left"/>
 

@@ -9,18 +9,22 @@
 ">
 
   <img src="Images_/0_class_image_2.png"
-       alt="Class image example"
+       alt="INFO 511 logo"
        width="120"
-       style="margin-right: 1rem; border-radius: 8px; border: 1px solid #c5f7c5;" />
+       style="margin-right: 1.5rem; border-radius: 10px; border: 1px solid #baf7ba;" />
 
   <div>
-    <h1 style="margin: 0; color: #065f46;">INFO 511 • Final Project (FA 25)</h1>
-    <p style="margin: 0.3rem 0 0 0;"><strong>Nathan Herling</strong></p>
-    <p style="margin: 0;">Project:<br><em>A temporal analysis of Meteorite findings.</em></p>
+    <h1 style="margin: 0; font-size: 1.8rem; color: #064e3b;">
+      INFO 511 • Final Project (FA 25)
+    </h1>
+    <p style="margin: 0.4rem 0 0 0; font-weight: 700; font-size: 1.2rem;">Nathan Herling</p>
+    <p style="margin: 0.2rem 0 0 0; font-size: 1.05rem;">
+      <strong>Project:</strong><br>
+      <em>A Temporal Analysis of Meteorite Findings</em>
+    </p>
   </div>
 
 </div>
-
 ---
 
 ## 📁 Directory Structure

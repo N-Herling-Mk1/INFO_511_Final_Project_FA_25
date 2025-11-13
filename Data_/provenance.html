@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Meteorite Landings — Dataset Hub</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --card-bg: #0b1020;
+      --accent: #4ade80;
+      --accent-soft: rgba(74, 222, 128, 0.18);
+      --accent-alt: #38bdf8;
+      --text-main: #e5f4ff;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;          /* meteor div on top, main card below */
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2.5rem 1.25rem;
+      background:
+        radial-gradient(circle at top, #1d283a 0, transparent 55%),
+        radial-gradient(circle at bottom, #020617 0, #020617 60%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      position: relative;
+      overflow-x: hidden;
+      gap: 1.75rem;
+    }
+
+    /* Sky streaks container - own space with border, top center, 85% width */
+    #sky-wrap.glow-hover {
+      position: relative;
+      width: 85%;
+      max-width: 1100px;
+      height: 140px;
+      pointer-events: none;
+      z-index: 10;
+      mix-blend-mode: screen;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.4), transparent 65%),
+        radial-gradient(circle at 50% 120%, rgba(15, 23, 42, 0.95), #020617);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.7),
+        0 18px 40px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      #sky-wrap.glow-hover {
+        width: 95%;
+        height: 120px;
+      }
+    }
+
+    #sky-streaks {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 880px;
+      background: linear-gradient(135deg, #020617 0%, #020617 35%, #020617 100%);
+      border-radius: 24px;
+      padding: 2.25rem 2.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 80%, rgba(74, 222, 128, 0.16), transparent 55%);
+      opacity: 0.9;
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;   /* closer together */
+      gap: 0.5rem;                   /* smaller gap between text + logo */
+      margin-bottom: 1.75rem;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    h1 span.tag {
+      font-size: 1rem;           /* NASA · Space Science larger */
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #e0f2fe;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 36rem;
+    }
+
+    .header-logo img {
+      width: 140px;   /* larger logo */
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(148, 163, 184, 0.75));
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 780px) {
+      body {
+        padding: 2rem 1rem;
+      }
+      .shell {
+        padding: 1.6rem 1.4rem 1.8rem;
+      }
+      .header-logo img {
+        width: 100px; /* slightly smaller on small screens, but still bigger */
+      }
+    }
+
+    /* Launch / CTA button */
+    .cta-wrap {
+      margin-bottom: 2rem;
+    }
+
+    .cta-link {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 0 0 auto;  /* right-aligned */
+      padding: 0.85rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #e5f4ff;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid transparent;   /* border handled by ::before */
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 0;
+      /* prepare for "ablaze" hover */
+      text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transition:
+        color 220ms ease-out,
+        text-shadow 220ms ease-out,
+        letter-spacing 220ms ease-out;
+    }
+
+    /* Pulsing / orbiting border inspired by NASA + meteor colors */
+    .cta-link::before {
+      content: "";
+      position: absolute;
+      inset: -3px;  /* thicker border region */
+      border-radius: inherit;
+      background:
+        conic-gradient(
+          from 0deg,
+          #38bdf8,
+          #4ade80,
+          #f97316,
+          #0ea5e9,
+          #22c55e,
+          #f97316,
+          #38bdf8
+        );
+      animation: cta-orbit 5.5s linear infinite;
+      z-index: -2;
+      opacity: 0.9;
+    }
+
+    .cta-link::after {
+      content: "";
+      position: absolute;
+      inset: 3px;  /* match border thickness inside */
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.24), transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(15, 23, 42, 0.95), #020617);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 16px 32px rgba(15, 23, 42, 0.9);
+      z-index: -1;
+    }
+
+    /* NEW hover: text comes ablaze; old transform removed */
+    .cta-link:hover {
+      color: #fffbeb;
+      letter-spacing: 0.24em;
+      text-shadow:
+        0 0 6px rgba(254, 249, 195, 0.9),
+        0 0 16px rgba(252, 211, 77, 0.95),
+        0 0 30px rgba(248, 113, 113, 0.85);
+    }
+
+    .cta-link:active {
+      transform: translateY(0);
+    }
+
+    @keyframes cta-orbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Provenance layout */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 780px) {
+      .meta-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* RED borders for the three lower-body blocks */
+    .meta-main {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+                  var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid #ef4444;  /* red border */
+      padding: 1.35rem 1.25rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card {
+      flex: 1;
+      min-height: 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid #ef4444;  /* red border */
+      padding: 0.95rem 0.95rem 0.9rem;
+      background: radial-gradient(circle at top right, rgba(74, 222, 128, 0.16), transparent 60%),
+                  #020617;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shared hover highlight for every div (and meta-main/article) */
+    .glow-hover {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-hover::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 220deg,
+        rgba(59, 130, 246, 0.15),
+        transparent 45%,
+        transparent 75%,
+        rgba(45, 212, 191, 0.22),
+        transparent
+      );
+      opacity: 0;
+      transition: opacity 260ms ease-out;
+      pointer-events: none;
+    }
+
+    .glow-hover:hover::before {
+      opacity: 1;
+    }
+
+    .meta-main h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .meta-main p.lead {
+      margin: 0 0 0.9rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .meta-main .updated {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #a5b4fc;
+      margin-bottom: 0.9rem;
+    }
+
+    .meta-main dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 0.6rem;
+      row-gap: 0.25rem;
+      font-size: 0.86rem;
+    }
+
+    .meta-main dt {
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.74rem;
+    }
+
+    .meta-main dd {
+      margin: 0;
+      color: #e5f4ff;
+    }
+
+    .meta-main dd span.subtle {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .meta-main .note {
+      margin-top: 0.8rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .meta-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: #cbd5f5;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-alt);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a5b4fc;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-main {
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .stat-main span.unit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .stat-note {
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .format-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.28rem;
+      margin-top: 0.4rem;
+    }
+
+    .format-pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 0.13rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #cbd5f5;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    /* (Toggle-notes + extra-notes CSS left as-is but no longer used) */
+    .toggle-notes {
+      margin-top: 0.5rem;
+      font-size: 0.76rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: #d1fae5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .toggle-notes span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .extra-notes {
+      display: none;
+      margin-top: 0.45rem;
+      padding-top: 0.55rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .extra-notes.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- sky streaks canvas -->
+  <div id="sky-wrap" class="glow-hover">
+    <canvas id="sky-streaks"></canvas>
+  </div>
+
+  <main class="shell" id="meteorite-shell">
+    <header class="glow-hover">
+      <div class="title-block glow-hover">
+        <h1>
+          Meteorite Landings
+          <span class="tag">NASA · Space Science</span>
+        </h1>
+        <div class="subtitle glow-hover">
+          All known meteorite landings compiled by The Meteoritical Society
+          and published via data.nasa.gov.
+        </div>
+      </div>
+      <div class="header-logo glow-hover">
+        <img src="../Images_/NASA_LOGO.png" alt="NASA logo" />
+      </div>
+    </header>
+
+    <!-- Right-aligned launch button with animated border + blazing text hover -->
+    <section class="cta-wrap glow-hover">
+      <a class="cta-link"
+         id="dataset-link"
+         href="https://catalog.data.gov/dataset/meteorite-landings"
+         target="_blank"
+         rel="noopener noreferrer">
+        data set website
+      </a>
+    </section>
+
+    <section class="meta-grid glow-hover">
+      <!-- left big provenance card -->
+      <article class="meta-main glow-hover" id="meta-main">
+        <div class="updated glow-hover">
+          Metadata updated: May 31, 2025 · Data last modified: May 29, 2025
+        </div>
+        <h2>Provenance & Stewardship</h2>
+        <p class="lead">
+          This dataset aggregates <strong>34,513</strong> meteorites recorded by
+          <strong>The Meteoritical Society</strong>, distributed publicly
+          through NASA’s open data infrastructure.
+        </p>
+
+        <dl>
+          <dt>Publisher</dt>
+          <dd>data.nasa.gov <span class="subtle">· NASA Public Data</span></dd>
+
+          <dt>Source</dt>
+          <dd>
+            The Meteoritical Society &mdash; global registry of known
+            meteorite landings
+          </dd>
+
+          <dt>Access level</dt>
+          <dd>Public <span class="subtle">· intended for open reuse</span></dd>
+
+          <dt>First published</dt>
+          <dd>July 20, 2015</dd>
+
+          <dt>Metadata created</dt>
+          <dd>November 12, 2020</dd>
+
+          <dt>Identifier</dt>
+          <dd>https://data.nasa.gov/api/views/gh4g-9sfh</dd>
+        </dl>
+
+        <div class="note glow-hover">
+          Licensing: no explicit license is listed. If prepared by a U.S.
+          government employee as part of official duties, the content is
+          considered a U.S. Government work.
+        </div>
+      </article>
+
+      <!-- meta-aside WITHOUT hover glow on container/chip-row, but with chips/dots -->
+      <aside class="meta-aside">
+        <div class="chip-row">
+          <span class="chip">
+            <span class="chip-dot"></span> Space Science
+          </span>
+          <span class="chip">
+            <span class="chip-dot"></span> Global coverage
+          </span>
+          <span class="chip">
+            <span class="chip-dot"></span> Landing records
+          </span>
+        </div>
+
+        <!-- upper-right stat card -->
+        <div class="stat-card glow-hover">
+          <div class="stat-label glow-hover">Scale</div>
+          <div class="stat-main glow-hover">
+            <span id="record-count">34,513</span>
+            <span class="unit">meteorites</span>
+          </div>
+          <div class="stat-note glow-hover">
+            Includes fields like:
+            <ul style="margin:0.25rem 0 0; padding-left:1.1rem;">
+              <li>name, id, nametype, recclass</li>
+              <li>mass (g), fall / found, year</li>
+              <li>latitude / longitude, GeoJSON coordinates</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- lower-right stat card -->
+        <div class="stat-card glow-hover" style="background: radial-gradient(circle at top left, var(--accent-soft), transparent 60%), #020617;">
+          <div class="stat-label glow-hover">Download formats</div>
+          <div class="format-list glow-hover">
+            <span class="format-pill">CSV</span>
+            <span class="format-pill">JSON</span>
+            <span class="format-pill">RDF</span>
+            <span class="format-pill">XML</span>
+          </div>
+          <div class="stat-note glow-hover">
+            Primary table file:
+            <strong>Meteorite_Landings.csv</strong>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById("sky-streaks");
+      const ctx = canvas.getContext("2d");
+
+      // --- Sky streaks: simple, always-on random spawner ---
+      const MAX_STREAKS = 9;
+      const SPAWN_CHANCE = 0.04;  // per frame
+      let streaks = [];
+
+      function initStreaks() {
+        streaks = [];
+        for (let i = 0; i < MAX_STREAKS; i++) {
+          streaks.push({ active: false });
+        }
+      }
+
+      function resizeCanvas() {
+        const wrap = document.getElementById("sky-wrap");
+        const rect = wrap.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        initStreaks();
+      }
+
+      function randomColorSet(isBright) {
+        if (!isBright) {
+          return {
+            start: "rgba(248, 250, 252, 1)",
+            mid: "rgba(148, 163, 184, 1)"
+          };
+        }
+        const palette = [
+          { start: "rgba(248, 113, 113, 1)", mid: "rgba(248, 150, 135, 1)" },
+          { start: "rgba(253, 224, 71, 1)", mid: "rgba(251, 191, 36, 1)" },
+          { start: "rgba(96, 165, 250, 1)", mid: "rgba(56, 189, 248, 1)" },
+          { start: "rgba(249, 115, 22, 1)", mid: "rgba(251, 146, 60, 1)" }
+        ];
+        return palette[Math.floor(Math.random() * palette.length)];
+      }
+
+      function spawnStreak() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = canvas.width / dpr;
+        const h = canvas.height / dpr;
+
+        const idx = streaks.findIndex((s) => !s.active);
+        if (idx === -1) return;
+
+        const side = Math.floor(Math.random() * 4);
+        let x, y;
+        const margin = 40;
+
+        if (side === 0) {          // top
+          x = Math.random() * w;
+          y = -margin;
+        } else if (side === 1) {   // bottom
+          x = Math.random() * w;
+          y = h + margin;
+        } else if (side === 2) {   // left
+          x = -margin;
+          y = Math.random() * h;
+        } else {                   // right
+          x = w + margin;
+          y = Math.random() * h;
+        }
+
+        const targetX = w / 2 + (Math.random() - 0.5) * (w * 0.5);
+        const targetY = h / 2 + (Math.random() - 0.5) * (h * 0.5);
+
+        let dx = targetX - x;
+        let dy = targetY - y;
+        const mag = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / mag;
+        const uy = dy / mag;
+
+        const baseAlpha = 0.25 + Math.random() * 0.35;
+        const isBright = Math.random() < 0.45;
+        const alpha = isBright ? Math.min(baseAlpha + 0.35, 0.95) : baseAlpha;
+        const thickness = isBright
+          ? 1.0 + Math.random() * 1.5
+          : 0.5 + Math.random() * 0.8;
+
+        const baseSpeed = 0.8 + Math.random() * 1.5;
+        const vx = ux * baseSpeed;
+        const vy = uy * baseSpeed;
+
+        const len = 50 + Math.random() * 90;
+        const colors = randomColorSet(isBright);
+
+        streaks[idx] = {
+          active: true,
+          x,
+          y,
+          len,
+          vx,
+          vy,
+          ux,
+          uy,
+          thickness,
+          alpha,
+          colorStart: colors.start,
+          colorMid: colors.mid
+        };
+      }
+
+      function drawStreaks() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = canvas.width / dpr;
+        const h = canvas.height / dpr;
+
+        ctx.clearRect(0, 0, w, h);
+
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+        bgGrad.addColorStop(0, "rgba(15,23,42,0.5)");
+        bgGrad.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        let activeCount = 0;
+        for (const s of streaks) {
+          if (s.active) activeCount++;
+        }
+
+        // Random spawn every frame; if totally quiet, force at least one
+        if (Math.random() < SPAWN_CHANCE || activeCount === 0) {
+          spawnStreak();
+          if (activeCount === 0 && Math.random() < 0.5) {
+            spawnStreak(); // occasional double spawn when restarting
+          }
+        }
+
+        const centerX = w / 2;
+        const centerY = h / 2;
+        const innerRadius = Math.min(w, h) * 0.18;
+        const killMargin = 80;
+
+        for (const s of streaks) {
+          if (!s.active) continue;
+
+          const tailX = s.x - s.ux * s.len;
+          const tailY = s.y - s.uy * s.len;
+          const headX = s.x;
+          const headY = s.y;
+
+          const grad = ctx.createLinearGradient(tailX, tailY, headX, headY);
+          grad.addColorStop(0, s.colorMid.replace("1)", `${s.alpha * 0.35})`));
+          grad.addColorStop(0.4, s.colorStart.replace("1)", `${s.alpha * 0.7})`));
+          grad.addColorStop(1, s.colorStart.replace("1)", `${s.alpha})`));
+
+          ctx.lineWidth = s.thickness;
+          ctx.strokeStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(headX, headY);
+          ctx.stroke();
+
+          s.x += s.vx * 1.25;
+          s.y += s.vy * 1.25;
+
+          const dx = s.x - centerX;
+          const dy = s.y - centerY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // kill if it reaches the inner "impact" region
+          if (dist < innerRadius) {
+            s.active = false;
+            continue;
+          }
+
+          // also kill if way off-screen (safety)
+          if (
+            s.x < -killMargin || s.x > w + killMargin ||
+            s.y < -killMargin || s.y > h + killMargin
+          ) {
+            s.active = false;
+          }
+        }
+
+        requestAnimationFrame(drawStreaks);
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+      requestAnimationFrame(drawStreaks);
+    })();
+  </script>
+</body>
+</html>

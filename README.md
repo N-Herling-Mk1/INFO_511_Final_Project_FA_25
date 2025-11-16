@@ -27,7 +27,9 @@
   <!-- Outer "card" border -->
 <div align="center">
 
-  <a href="Data_/provenance.html" target="_blank" style="
+  <a href="https://github.com/USERNAME/REPO/blob/main/Data_/provenance.html" 
+     target="_blank" 
+     style="
       font-size: 22px;
       font-weight: 600;
       text-decoration: none;

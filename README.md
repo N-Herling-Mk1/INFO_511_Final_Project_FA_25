@@ -27,7 +27,7 @@
   <!-- Outer "card" border -->
 <div align="center">
 
-  <a href="https://github.com/N-Herling-Mk1/INFO_511_Final_Project_FA_25/blob/main/Data_/provenance.html" 
+  <a href="https://n-herling-mk1.github.io/INFO_511_Final_Project_FA_25/provenance.html" 
      target="_blank" 
      style="
       font-size: 22px;

@@ -1,17 +1,38 @@
-<table>
+<table width="100%">
   <tr>
-    <td style="vertical-align: top; padding-right: 12px;">
+    <!-- Left: Class Logo -->
+    <td style="vertical-align: top; padding-right: 12px; width: 140px;">
       <img src="Images_/0_class_image_2.png" alt="INFO 511 logo" width="120">
     </td>
     <td style="vertical-align: top;">
-      
-# INFO 511 • Final Project (FA 25)
-
-**Nathan Herling**  
-**Project:** _A Temporal Analysis of Meteorite Findings_
-
+      <h1>INFO 511 • Final Project (FA 25)</h1>
+      <b>Nathan Herling</b><br>
+      <i>Project: A Temporal Analysis of Meteorite Findings</i>
+    </td>
+    <!-- Right: The GIF -->
+    <td style="vertical-align: top; text-align: right; width: 220px;">
+      <img src="Images_/mk_4d_no_legend__.gif" alt="Meteorite Animation" width="200">
+    </td>
   </tr>
 </table>
+
+---
+<!-- ====================================================== -->
+<!--  Provenance Button (opens provenance.html in new tab) -->
+<!-- ====================================================== -->
+<p style="margin-top: 16px;">
+  <a href="Data_/provenance.html" target="_blank" style="
+     display:inline-block;
+     padding:8px 14px;
+     background:#1d4ed8;
+     color:white !important;
+     text-decoration:none;
+     border-radius:6px;
+     font-weight:600;
+     border:1px solid #0f2a6d;">
+    More Provenance Info
+  </a>
+</p>
 
 ---
 
@@ -35,7 +56,7 @@ INFO_511_Final_Project_FA_25/
 ## 🚀 Quick Start
 1. **Clone** the repo and enter the project folder:
    ```bash
-   git clone <YOUR-REPO-URL>
+   git clone https://github.com/N-Herling-Mk1/INFO_511_Final_Project_FA_25.git
    cd INFO_511_Final_Project_FA_25
    ```
 2. (Optional) Create a fresh environment and install deps:

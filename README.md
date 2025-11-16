@@ -25,30 +25,23 @@
 <p align="center">
 
   <!-- Outer "card" border -->
-  <div style="
-       display: inline-block;
-       border: 2px solid #1d4ed8;
-       border-radius: 10px;
-       padding: 16px 22px;
-       text-align: center;
-  ">
-    <!-- The button itself -->
-    <a href="Data_/provenance.html" target="_blank" style="
-         font-size: 20px;
-         font-weight: 600;
-         text-decoration: none;
-         color: #1d4ed8 !important;
-         padding: 10px 18px;
-         border: 1px solid #93c5fd;
-         border-radius: 8px;
-         background: #f9fafb;
-         display: inline-block;
-    ">
-    More Provenance Info
-    </a>
-  </div>
+<div align="center">
 
-</p>
+  <a href="Data_/provenance.html" target="_blank" style="
+      font-size: 22px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #1d4ed8 !important;
+      padding: 12px 20px;
+      border: 2px solid #1d4ed8;
+      border-radius: 10px;
+      background: #f9fafb;
+      display: inline-block;
+  ">
+    More Provenance Info
+  </a>
+
+</div>
 
 ---
 

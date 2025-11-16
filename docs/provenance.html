@@ -41,6 +41,39 @@
       gap: 1.75rem;
     }
 
+    /* 🔹 NEW: Course banner at top */
+    .course-banner {
+      width: 100%;
+      max-width: 880px;
+      padding: 0.65rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.85);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.25), transparent 60%),
+        radial-gradient(circle at 90% 140%, rgba(15, 23, 42, 0.95), #020617);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 14px 28px rgba(15, 23, 42, 0.9);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e5f4ff;
+    }
+
+    .course-banner span.highlight {
+      color: #bfdbfe;
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .course-banner {
+        font-size: 0.8rem;
+        padding: 0.55rem 1.1rem;
+      }
+    }
+
     /* Sky streaks container - own space with border, top center, 85% width */
     #sky-wrap.glow-hover {
       position: relative;
@@ -490,6 +523,11 @@
   </style>
 </head>
 <body>
+  <!-- 🔹 NEW: Course banner -->
+  <div class="course-banner">
+    <span class="highlight">INFO 511</span> · Introduction to Data Science · Fall 25
+  </div>
+
   <!-- sky streaks canvas -->
   <div id="sky-wrap" class="glow-hover">
     <canvas id="sky-streaks"></canvas>
@@ -508,7 +546,7 @@
         </div>
       </div>
       <div class="header-logo glow-hover">
-        <img src="Images_/bio_sketch_with_border.png" alt="NASA logo" style="max-width: 180px;">
+        <img src="NASA_LOGO.png" alt="NASA logo" style="max-width: 180px;">
       </div>
     </header>
 

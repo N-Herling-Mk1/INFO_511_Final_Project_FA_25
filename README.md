@@ -18,30 +18,37 @@
 
 ---
 <!-- ====================================================== -->
-<!--  Provenance Button (opens provenance.html in new tab) -->
+<!--  Provenance Button - GitHub-Compatible Centered Layout -->
 <!-- ====================================================== -->
-<div style="
-  margin: 24px auto;
-  text-align: center;
-  max-width: 260px;
-  border: 2px solid #1d4ed8;
-  border-radius: 10px;
-  padding: 12px 16px;
-  box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
-">
-  <a href="Data_/provenance.html" target="_blank" style="
-     display: inline-block;
-     padding: 8px 14px;
-     text-decoration: none;
-     font-weight: 600;
-     border-radius: 6px;
-     border: 1px solid #93c5fd;
-     color: #1d4ed8 !important;
-     background: #f9fafb;
+
+<!-- Center wrapper (GitHub-safe) -->
+<p align="center">
+
+  <!-- Outer "card" border -->
+  <div style="
+       display: inline-block;
+       border: 2px solid #1d4ed8;
+       border-radius: 10px;
+       padding: 16px 22px;
+       text-align: center;
   ">
+    <!-- The button itself -->
+    <a href="Data_/provenance.html" target="_blank" style="
+         font-size: 20px;
+         font-weight: 600;
+         text-decoration: none;
+         color: #1d4ed8 !important;
+         padding: 10px 18px;
+         border: 1px solid #93c5fd;
+         border-radius: 8px;
+         background: #f9fafb;
+         display: inline-block;
+    ">
     More Provenance Info
-  </a>
-</div>
+    </a>
+  </div>
+
+</p>
 
 ---
 

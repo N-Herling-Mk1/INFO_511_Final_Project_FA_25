@@ -20,19 +20,28 @@
 <!-- ====================================================== -->
 <!--  Provenance Button (opens provenance.html in new tab) -->
 <!-- ====================================================== -->
-<p style="margin-top: 16px;">
+<div style="
+  margin: 24px auto;
+  text-align: center;
+  max-width: 260px;
+  border: 2px solid #1d4ed8;
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+">
   <a href="Data_/provenance.html" target="_blank" style="
-     display:inline-block;
-     padding:8px 14px;
-     background:#1d4ed8;
-     color:white !important;
-     text-decoration:none;
-     border-radius:6px;
-     font-weight:600;
-     border:1px solid #0f2a6d;">
+     display: inline-block;
+     padding: 8px 14px;
+     text-decoration: none;
+     font-weight: 600;
+     border-radius: 6px;
+     border: 1px solid #93c5fd;
+     color: #1d4ed8 !important;
+     background: #f9fafb;
+  ">
     More Provenance Info
   </a>
-</p>
+</div>
 
 ---
 

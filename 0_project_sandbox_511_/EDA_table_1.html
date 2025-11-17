@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meteorite Landings — EDA Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      margin: 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    p.subtitle {
+      text-align: left;
+      margin-top: 16px;
+      margin-bottom: 0;
+      font-size: 14px;
+      max-width: 98%;
+    }
+    .table-wrapper {
+      margin-top: 8px;
+
+      /* >>> OUTER BORDER: thickness + color
+         Change 4px (thickness) or #000000 (color) to adjust the look.
+      */
+      border: 4px solid #000000;   /* solid BLACK outer border */
+      border-radius: 10px;
+      padding: 0;
+      overflow: hidden;            /* keeps rounded corners clean */
+    }
+    .eda-table {
+      width: 100%;
+      border-collapse: collapse;   /* ensures borders touch cleanly */
+      background: #f5f4e8;         /* beige background for main table body */
+    }
+    .eda-table th {
+      background: #4ade80;         /* green header */
+      color: black;
+      font-weight: bold;
+      padding: 10px;
+      border-bottom: 2px solid black;
+      border-right: 1px solid black; /* vertical line between header columns */
+      text-align: center;
+    }
+    .eda-table th:last-child {
+      border-right: none;
+    }
+    .eda-table td {
+      padding: 8px;
+      border-bottom: 1px solid black;  /* horizontal row lines */
+      border-right: 1px solid black;   /* vertical column lines */
+      text-align: center;
+    }
+    .eda-table tr:last-child td {
+      border-bottom: none;
+    }
+    .eda-table td:last-child {
+      border-right: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Table 1. Initial EDA Exploration</h2>
+
+  <div class="table-wrapper">
+    <table class="eda-table">
+      <tr>
+        <th>Feature Name</th>
+        <th>Pandas dtype</th>
+        <th>Categorical / Numerical</th>
+        <th># Unique</th>
+        <th>% Missing</th>
+        <th>Description</th>
+      </tr>
+      
+    <tr>
+      <td>name</td>
+      <td>object</td>
+      <td>Categorical</td>
+      <td>45716</td>
+      <td>0.00%</td>
+      <td>Name of the meteorite as recorded in the catalog.</td>
+    </tr>
+    
+
+    <tr>
+      <td>id</td>
+      <td>int64</td>
+      <td>Numerical</td>
+      <td>45716</td>
+      <td>0.00%</td>
+      <td>Unique numeric identifier assigned to each meteorite record.</td>
+    </tr>
+    
+
+    <tr>
+      <td>nametype</td>
+      <td>object</td>
+      <td>Categorical</td>
+      <td>2</td>
+      <td>0.00%</td>
+      <td>Indicates valid meteorite names ('Valid') or paired/duplicate names ('Relict').</td>
+    </tr>
+    
+
+    <tr>
+      <td>recclass</td>
+      <td>object</td>
+      <td>Categorical</td>
+      <td>466</td>
+      <td>0.00%</td>
+      <td>Classification based on chemical and petrological type.</td>
+    </tr>
+    
+
+    <tr>
+      <td>mass (g)</td>
+      <td>float64</td>
+      <td>Numerical</td>
+      <td>12576</td>
+      <td>0.29%</td>
+      <td>Reported mass of the meteorite in grams.</td>
+    </tr>
+    
+
+    <tr>
+      <td>fall</td>
+      <td>object</td>
+      <td>Categorical</td>
+      <td>2</td>
+      <td>0.00%</td>
+      <td>Indicates whether the meteorite was 'Fell' (observed fall) or 'Found'.</td>
+    </tr>
+    
+
+    <tr>
+      <td>year</td>
+      <td>datetime64[ns]</td>
+      <td>Numerical</td>
+      <td>265</td>
+      <td>0.64%</td>
+      <td>Year the meteorite was found or fell.</td>
+    </tr>
+    
+
+    <tr>
+      <td>reclat</td>
+      <td>float64</td>
+      <td>Numerical</td>
+      <td>12738</td>
+      <td>16.00%</td>
+      <td>Latitude of the recovery site.</td>
+    </tr>
+    
+
+    <tr>
+      <td>reclong</td>
+      <td>float64</td>
+      <td>Numerical</td>
+      <td>14640</td>
+      <td>16.00%</td>
+      <td>Longitude of the recovery site.</td>
+    </tr>
+    
+
+    <tr>
+      <td>GeoLocation</td>
+      <td>object</td>
+      <td>Categorical</td>
+      <td>17100</td>
+      <td>16.00%</td>
+      <td>Coordinate pair representing the recovery location (latitude, longitude).</td>
+    </tr>
+    
+    </table>
+  </div>
+
+  <p class="subtitle">
+    Table 1. Summary of the primary features in the NASA Meteorite Landings dataset,
+    including pandas data types, inferred feature type, cardinality, missingness,
+    and brief semantic descriptions used for subsequent exploratory analysis.
+  </p>
+
+</body>
+</html>

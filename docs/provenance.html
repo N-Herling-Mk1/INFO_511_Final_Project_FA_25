@@ -2,8 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Meteorite Landings — Dataset Hub</title>
+  <title>Nathan's INFO 511 - Final Project - Data Provenance Site</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- 🔹 Basic description -->
+  <meta name="description" content="Nathan Herling's INFO 511 Final Project: Data Provenance site for the NASA Meteorite Landings dataset." />
+
+  <!-- 🔹 Open Graph / Social preview (use your complete logo image here) -->
+  <!-- Replace `provenance_social_logo.png` with the actual exported logo image -->
+  <meta property="og:title" content="Nathan's INFO 511 - Final Project - Data Provenance Site" />
+  <meta property="og:description" content="Data Provenance and metadata overview for the NASA Meteorite Landings dataset." />
+  <meta property="og:type" content="website" />
+  <!-- If you have a full URL to this page, put it here -->
+  <meta property="og:url" content="https://example.com/provenance.html" />
+  <meta property="og:image" content="provenance_social_logo.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- 🔹 Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nathan's INFO 511 - Final Project - Data Provenance Site" />
+  <meta name="twitter:description" content="Data Provenance and metadata overview for the NASA Meteorite Landings dataset." />
+  <meta name="twitter:image" content="provenance_social_logo.png" />
+
+  <!-- 🔹 Tab icon / favicon -->
+  <link rel="icon" type="image/svg+xml" href="meteorite_tab_icon.svg">
+  <link rel="icon" type="image/x-icon" href="meteorite_icon.ico">
+
   <style>
     :root {
       --bg: #050814;
@@ -41,36 +67,97 @@
       gap: 1.75rem;
     }
 
-    /* 🔹 NEW: Course banner at top */
+    /* 🔹 University of Arizona banner — 80% width, centered, symmetric */
     .course-banner {
-      width: 100%;
-      max-width: 880px;
-      padding: 0.65rem 1.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.85);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.25), transparent 60%),
-        radial-gradient(circle at 90% 140%, rgba(15, 23, 42, 0.95), #020617);
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 14px 28px rgba(15, 23, 42, 0.9);
-      text-align: center;
+      width: 80%;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;   /* white background */
+      border: 4px solid #b91c1c;   /* UA red border */
+      border-radius: 0;
+      padding: 0.75rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;  /* symmetry: left logo, center text, right icon */
+      gap: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      color: #111827;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.12em;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #e5f4ff;
+      z-index: 20;
+    }
+
+    .course-banner-logo img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    .course-banner-text {
+      flex: 1;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .course-banner-text .line-ua {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      color: #111827;
+    }
+
+    .course-banner-text .line-course {
+      margin-top: 0.15rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      color: #0c234b; /* UA navy */
     }
 
     .course-banner span.highlight {
-      color: #bfdbfe;
       font-weight: 700;
     }
 
+    .course-banner-icon {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+
+    .course-banner-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
     @media (max-width: 640px) {
+      body {
+        padding: 2rem 0.5rem;
+      }
+
       .course-banner {
+        width: 90%;
+        padding: 0.6rem 1.2rem;
+        gap: 0.6rem;
         font-size: 0.8rem;
-        padding: 0.55rem 1.1rem;
+        letter-spacing: 0.1em;
+      }
+
+      .course-banner-logo img {
+        height: 40px;
+      }
+
+      .course-banner-text .line-ua {
+        font-size: 0.7rem;
+      }
+
+      .course-banner-text .line-course {
+        font-size: 0.8rem;
+      }
+
+      .course-banner-icon {
+        width: 40px;
+        height: 40px;
       }
     }
 
@@ -196,9 +283,12 @@
       }
     }
 
-    /* Launch / CTA button */
+    /* Launch / CTA area: button only */
     .cta-wrap {
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* button on the left */
     }
 
     .cta-link {
@@ -209,12 +299,11 @@
       justify-content: center;
       width: 100%;
       max-width: 420px;
-      margin: 0 0 0 auto;  /* right-aligned */
-      padding: 0.85rem 1.8rem;
+      padding: 1.05rem 2.1rem;  /* taller button */
       border-radius: 999px;
       text-decoration: none;
       color: #e5f4ff;
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -222,7 +311,6 @@
       cursor: pointer;
       overflow: hidden;
       z-index: 0;
-      /* prepare for "ablaze" hover */
       text-shadow: 0 0 0 rgba(0, 0, 0, 0);
       transition:
         color 220ms ease-out,
@@ -230,7 +318,6 @@
         letter-spacing 220ms ease-out;
     }
 
-    /* Pulsing / orbiting border inspired by NASA + meteor colors */
     .cta-link::before {
       content: "";
       position: absolute;
@@ -266,7 +353,6 @@
       z-index: -1;
     }
 
-    /* NEW hover: text comes ablaze; old transform removed */
     .cta-link:hover {
       color: #fffbeb;
       letter-spacing: 0.24em;
@@ -286,7 +372,6 @@
       }
     }
 
-    /* Provenance layout */
     .meta-grid {
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
@@ -297,9 +382,12 @@
       .meta-grid {
         grid-template-columns: minmax(0, 1fr);
       }
+
+      .cta-wrap {
+        justify-content: center; /* center button on narrow screens */
+      }
     }
 
-    /* RED borders for the three lower-body blocks */
     .meta-main {
       background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
                   var(--card-bg);
@@ -322,7 +410,6 @@
       overflow: hidden;
     }
 
-    /* Shared hover highlight for every div (and meta-main/article) */
     .glow-hover {
       position: relative;
       overflow: hidden;
@@ -486,7 +573,6 @@
       background: rgba(15, 23, 42, 0.85);
     }
 
-    /* (Toggle-notes + extra-notes CSS left as-is but no longer used) */
     .toggle-notes {
       margin-top: 0.5rem;
       font-size: 0.76rem;
@@ -523,9 +609,88 @@
   </style>
 </head>
 <body>
-  <!-- 🔹 NEW: Course banner -->
+  <!-- 🔹 UA banner with symmetric meteorite icon -->
   <div class="course-banner">
-    <span class="highlight">INFO 511</span> · Introduction to Data Science · Fall 25
+    <div class="course-banner-logo">
+      <!-- Place U_of_A_LOGO.png in the same folder as this HTML file -->
+      <img src="U_of_A_LOGO.png" alt="University of Arizona logo">
+    </div>
+
+    <div class="course-banner-text">
+      <div class="line-ua">THE UNIVERSITY OF ARIZONA</div>
+      <div class="line-course">
+        <span class="highlight">INFO 511</span> · INTRODUCTION TO DATA SCIENCE · FALL 2025
+      </div>
+    </div>
+
+    <div class="course-banner-icon" aria-hidden="true">
+      <!-- Inline meteorite icon SVG -->
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgGrad" cx="30%" cy="20%" r="80%">
+            <stop offset="0%" stop-color="#1d283a"/>
+            <stop offset="60%" stop-color="#020617"/>
+            <stop offset="100%" stop-color="#000000"/>
+          </radialGradient>
+
+          <linearGradient id="earthGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0ea5e9"/>
+            <stop offset="50%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#60a5fa"/>
+          </linearGradient>
+
+          <linearGradient id="meteorTail" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#7f1d1d"/>
+            <stop offset="20%"  stop-color="#dc2626"/>
+            <stop offset="45%"  stop-color="#f97316"/>
+            <stop offset="70%"  stop-color="#facc15"/>
+            <stop offset="100%" stop-color="#fff9c2"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outer border (UA red) + background -->
+        <circle
+          cx="32"
+          cy="32"
+          r="30"
+          fill="url(#bgGrad)"
+          stroke="#b91c1c"
+          stroke-width="3" />
+
+        <!-- Earth arc (full blue) -->
+        <path
+          d="M8 44 C 22 28, 42 28, 56 44"
+          fill="none"
+          stroke="url(#earthGrad)"
+          stroke-width="7"
+          stroke-linecap="round"
+          stroke-opacity="0.98" />
+
+        <!-- Meteor tail: tapered + red/orange/yellow toward head -->
+        <path
+          d="M12 12 C 24 20, 34 26, 46 34"
+          fill="none"
+          stroke="url(#meteorTail)"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-opacity="0.95"
+          vector-effect="non-scaling-stroke" />
+
+        <!-- Meteor glow -->
+        <circle
+          cx="48"
+          cy="35"
+          r="6"
+          fill="#f97316"
+          fill-opacity="0.98" />
+        <circle
+          cx="48"
+          cy="35"
+          r="10"
+          fill="#f97316"
+          fill-opacity="0.25" />
+      </svg>
+    </div>
   </div>
 
   <!-- sky streaks canvas -->
@@ -550,7 +715,7 @@
       </div>
     </header>
 
-    <!-- Right-aligned launch button with animated border + blazing text hover -->
+    <!-- CTA: button only -->
     <section class="cta-wrap glow-hover">
       <a class="cta-link"
          id="dataset-link"
@@ -569,7 +734,7 @@
         </div>
         <h2>Provenance & Stewardship</h2>
         <p class="lead">
-          This dataset aggregates <strong>34,513</strong> meteorites recorded by
+          This dataset aggregates <strong>45,716</strong> meteorites recorded by
           <strong>The Meteoritical Society</strong>, distributed publicly
           through NASA’s open data infrastructure.
         </p>
@@ -604,7 +769,7 @@
         </div>
       </article>
 
-      <!-- meta-aside WITHOUT hover glow on container/chip-row, but with chips/dots -->
+      <!-- meta-aside -->
       <aside class="meta-aside">
         <div class="chip-row">
           <span class="chip">
@@ -626,7 +791,7 @@
             <span class="unit">meteorites</span>
           </div>
           <div class="stat-note glow-hover">
-            Includes fields like:
+            Includes 10 features:
             <ul style="margin:0.25rem 0 0; padding-left:1.1rem;">
               <li>name, id, nametype, recclass</li>
               <li>mass (g), fall / found, year</li>
@@ -781,11 +946,10 @@
           if (s.active) activeCount++;
         }
 
-        // Random spawn every frame; if totally quiet, force at least one
         if (Math.random() < SPAWN_CHANCE || activeCount === 0) {
           spawnStreak();
           if (activeCount === 0 && Math.random() < 0.5) {
-            spawnStreak(); // occasional double spawn when restarting
+            spawnStreak();
           }
         }
 
@@ -821,13 +985,11 @@
           const dy = s.y - centerY;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          // kill if it reaches the inner "impact" region
           if (dist < innerRadius) {
             s.active = false;
             continue;
           }
 
-          // also kill if way off-screen (safety)
           if (
             s.x < -killMargin || s.x > w + killMargin ||
             s.y < -killMargin || s.y > h + killMargin

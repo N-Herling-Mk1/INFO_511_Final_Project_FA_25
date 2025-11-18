@@ -1,0 +1,39 @@
+##########################################################################################
+#This file contains a listing of all Python (.py) files included in the project repository.
+#It lists their:
+#    - file name
+#    - file input 
+#    - file output
+#########################################################################################
+
+[py_plot_raw_data.py]
+Script to make a scatter plot of the raw data.
+No filter, no reduction of data points to {year,count}
+Creates a unfiltered (time,count) graph
+Creates a (log(time),count) graph
+.Input:
+  Data_/Meteorite_Landings.csv
+Output:
+  EDA_table_1.html
+ 
+
+[table_1_html_code.py]
+Script to make an .html table.
+The table will contain statistics from the raw, unfiltered data set.
+.Input:
+  Data_/Meteorite_Landings.csv
+Output:
+  Meteorite_Falls_Found_Time_Series_linear.png
+  Meteorite_Falls_Found_Time_Series_logx.png 
+
+[]
+
+
+
+
+[]
+
+
+
+
+[]

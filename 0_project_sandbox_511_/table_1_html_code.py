@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-generate_eda_table.py
-
+Nathan Herling
+University of Arizona - Fall 2025
+INFO 511 - Introduction to Data Science.
+.
+table_1_html_code.py
+.
+Input:
+  Data_/Meteorite_Landings.csv
+Output:
+  EDA_table_1.html
+.
 Reads Meteorite_Landings.csv from the current directory and writes a styled
 HTML EDA table to:
   EDA_table_1.html
-
 No command line arguments needed.
+.
+Usage plan - generate the .html file, take a screen shot, 
+embed the screen shot in final document/powerpoint presentation.
 """
 
 from pathlib import Path

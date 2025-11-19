@@ -6,18 +6,25 @@
 #    - file output
 #########################################################################################
 
+========================================== EDA - PHASE 1 ==================================
+
 [py_plot_raw_data.py]
+=====================
 Script to make a scatter plot of the raw data.
 No filter, no reduction of data points to {year,count}
 Creates a unfiltered (time,count) graph
 Creates a (log(time),count) graph
-.Input:
-  Data_/Meteorite_Landings.csv
+Creates a freuqency histogram [bins reperesenting counts in a year for asteroid impacts]
+Input:
+    Data_/Meteorite_Landings.csv
 Output:
-  EDA_table_1.html
+    (1) Meteorite_Falls_Found_Time_Series.png
+    (2) Meteorite_Falls_Found_Time_Series_logx.png
+    (3) Meteorite_Yearly_Count_Histogram.png
  
 
 [table_1_html_code.py]
+======================
 Script to make an .html table.
 The table will contain statistics from the raw, unfiltered data set.
 .Input:
@@ -26,14 +33,192 @@ Output:
   Meteorite_Falls_Found_Time_Series_linear.png
   Meteorite_Falls_Found_Time_Series_logx.png 
 
-[]
+
+========================================== EDA - PHASE 2 ==================================
+[py_refactorData_mk1.py]
+========================
+Script to impute, filter, restructure original data set (mk_1)
+.
+Read the original Meteorite_Landings.csv file and refactor it down to a
+two-column dataset:
+
+    [year], [num_fell_found]
+
+where:
+  * year           = calendar year (integer)
+  * num_fell_found = number of meteorites (Fell or Found) recorded in that year
+
+Filters / cleaning steps:
+  (1) Eliminate any rows with missing/invalid year values.
+  (2) Eliminate any rows that are exact duplicates of existing rows.
+  (3) Eliminate any rows with year > 2013.
+  (4) Keep only rows whose 'fall' field is Fell or Found.
+input: Data_/Meteorite_Landings.csv
+output: Data_/imputation_filter_Tx.csv
+
+
+
+[py_EDA_phase2_graphs.py]
+================================
+Script to:
+Goal
+----
+Read the refactored meteorite dataset:
+
+    imputating_filter1_Tx.csv
+
+with columns:
+    year, num_fell_found
+
+and produce three EDA visuals:
+
+  1. Frequency distribution / histogram of num_fell_found
+     (using log-spaced bins on a log-scaled x-axis)
+  2. Time-series scatter plot of yearly counts (year vs num_fell_found)
+  3. Q–Q plot of num_fell_found versus a theoretical Normal distribution
+
+Outputs
+-------
+PNG files in the current working directory:
+
+  EDA_phase2_hist_num_fell_found.png
+  EDA_phase2_scatter_year_counts.png
+  EDA_phase2_qq_num_fell_found.png
+
+
+========================================== EDA - PHASE 3 ==================================
+
+[py_EDA_phase3_Outlier_Removal.py]
+===================================
+Script to:
+Goal
+----
+Read the EDA Phase 2 refactored meteorite dataset:
+    imputating_filter1_Tx.csv
+with columns:
+    year, num_fell_found
+Apply Tukey-style outlier removal on the yearly counts (num_fell_found):
+    - Compute Q1 (25%), Q3 (75%), and IQR = Q3 - Q1
+    - Define lower bound: Q1 - 1.5 * IQR
+    - Define upper bound: Q3 + 1.5 * IQR
+    - Remove any rows with num_fell_found < lower bound
+                         or num_fell_found > upper bound
+Write the filtered dataset to:
+    outlier_filter_2.csv
 
 
 
 
-[]
+[py_EDA_phase3_Normality_Check.py]
+=========================================
+Script to:
+Goal
+----
+Read the EDA Phase 3 outlier-filtered meteorite dataset:
+    outlier_filter_2.csv
+with columns (at minimum):
+    year, num_fell_found
+Perform numeric normality checks on the yearly counts (num_fell_found):
+  * Multimodality (via KDE-based mode-count heuristic)
+  * Skewness (asymmetry)
+  * Kurtosis (tailedness; using kurtosis relative to Normal with fisher=False)
+Then:
+  * Print metrics and short plain-language explanations
+  * Evaluate several candidate transformations to move the data toward Normal:
+      - identity (no transform)
+      - log1p(x)
+      - sqrt(x)
+      - cbrt(x)
+      - Box–Cox (if strictly positive)
+  * Choose the best transform via a simple score:
+        score = |skew| + |kurtosis - 3|
+    (smaller = closer to Normal)
+  * Apply that transform and:
+      - Generate a side-by-side comparison plot:
+          · Original histogram + Q–Q
+          · Transformed histogram + Q–Q
+      - Z-transform the transformed data (mean 0, sd 1) and
+        report its summary metrics.
+Outputs
+-------
+Console:
+  - Original normality metrics
+  - Ranked transform summary
+  - Before/after “distance from Normal”
+  - Z-transform summary
+Figure:
+  EDA_phase3_normality_comparison.png
+  
+  
+[py_kurtosis_skew_analysis_table.py]
+=========================================
+Script to:
+Goal
+----
+Summarize the skewness / kurtosis analysis and candidate transforms
+(from EDA Phase 3 Normality Check) into a styled HTML table.
 
+Based on program output:
+  Note: For a perfectly Normal distribution, skewness ≈ 0 and
+        kurtosis ≈ 3 (mesokurtic), per INFO 511 Lecture 4.
+  === Candidate Transforms: Skewness & Kurtosis ===
+  Score = |skew| + |kurtosis - 3|  (lower is closer to Normal)
+  - sqrt    : skew =   0.5761, kurtosis =   2.5769, score =   0.9991
+  - cuberoot: skew =   0.2880, kurtosis =   2.0930, score =   1.1950
+  - log1p   : skew =   0.0076, kurtosis =   1.7394, score =   1.2682
+  - boxcox  : skew =  -0.0550, kurtosis =   1.7588, score =   1.2962 (lambda ≈ 0.105)
+  - identity: skew =   1.5610, kurtosis =   5.5396, score =   4.1006
+  Recommended transform:
+    'sqrt' — skew ≈ 0.5761, kurtosis ≈ 2.5769, closest to Normal (skew≈0, kurtosis≈3).
+	
+	
+============================== PHASE 4 ====================================
 
+[py_EDA_phase4_finalData_Tx.py]
+===============================
+Script to:
+Goal
+----
+Phase 4: Apply the recommended square-root transform to the yearly
+meteorite counts (num_fell_found) after outlier removal, and perform
+basic regression-assumption checks.
+Input
+-----
+    outlier_filter_2.csv
+Expected columns:
+    year, num_fell_found
+Processing
+----------
+1. Load the outlier-filtered dataset.
+2. Apply a square-root transform:
+       num_fell_found_sqrt = sqrt(num_fell_found)
 
-
-[]
+3. Save a new CSV:
+       final_data_Tx.csv
+   with columns:
+       year, num_fell_found, num_fell_found_sqrt
+4. Generate four plots of the transformed response:
+   - Graph 9.  Scatter plot: year vs sqrt(num_fell_found)
+   - Graph 10. Histogram of sqrt(num_fell_found)
+   - Graph 11. Box plot of sqrt(num_fell_found)
+   - Graph 12. Q–Q plot of sqrt(num_fell_found) vs Normal
+Outputs (PNG)
+-------------
+  EDA_phase4_scatter_year_vs_sqrt_counts.png   (Graph 9)
+  EDA_phase4_hist_sqrt_counts.png              (Graph 10)
+  EDA_phase4_box_sqrt_counts.png               (Graph 11)
+  EDA_phase4_qq_sqrt_counts.png                (Graph 12)
+Regression Checks
+-----------------
+Fit a simple linear regression:
+    sqrt(num_fell_found) = beta0 + beta1 * (year_centered) + eps
+and print:
+  - n, min/max/mean/std of transformed counts
+  - regression slope, intercept, R^2
+  - Normality of residuals:
+      * Shapiro–Wilk test statistic + p-value
+      * residual skewness, residual kurtosis (fisher=False)
+  - Autocorrelation / independence:
+      * Durbin–Watson statistic
+  - Homoscedasticity (rough check):
+      * correlation between |residuals| and fitted values

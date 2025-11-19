@@ -9,18 +9,21 @@ py_plot_raw_data.py
 ....
 Read the original Meteorite_Landings.csv file and create a jittered
 time-series scatter plot of meteorite FALLS and FINDS by year.
-
+Creates a frequency histogram with bins corresponding to log-scale number of meteorries fall/fell in a year.
 Input:
     Data_/Meteorite_Landings.csv
 
 Output:
-    Meteorite_Falls_Found_Time_Series.png
+    (1) Meteorite_Falls_Found_Time_Series.png
+    (2) Meteorite_Falls_Found_Time_Series_logx.png
+    (3) Meteorite_Yearly_Count_Histogram.png
 """
 
 from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
 
 
 # =========================
@@ -29,6 +32,7 @@ import matplotlib.pyplot as plt
 INPUT_CSV = Path("..\Data_") / "Meteorite_Landings.csv"
 OUTPUT_PNG_LINEAR = Path("Meteorite_Falls_Found_Time_Series_linear.png")
 OUTPUT_PNG_LOGX = Path("Meteorite_Falls_Found_Time_Series_logx.png")
+OUTPUT_PNG_HIST = Path("Meteorite_Yearly_Count_Histogram.png")
 
 
 def build_jittered_coords(df):
@@ -83,6 +87,8 @@ def build_jittered_coords(df):
         "total_meteorites": total_meteorites,
         "n_fell": n_fell,
         "n_found": n_found,
+        # add the full yearly count series so we can build a histogram later
+        "counts_by_year_total": counts_by_year_total,
     }
 
     return summary, category_coords
@@ -199,6 +205,94 @@ def make_plot(summary, category_coords, output_path, log_x=False, graph_index=1)
     plt.close()
 
 
+def _make_log_ticks(min_count, max_count):
+    """
+    Helper: build nice log-spaced tick locations between min_count and max_count
+    using 1, 2, 5 * 10^k scheme.
+    """
+    if min_count < 1:
+        min_count = 1
+
+    lo_exp = math.floor(math.log10(min_count))
+    hi_exp = math.ceil(math.log10(max_count))
+
+    tick_vals = []
+    for exp in range(lo_exp, hi_exp + 1):
+        for m in (1, 2, 5):
+            val = m * (10 ** exp)
+            if min_count <= val <= max_count:
+                tick_vals.append(val)
+
+    # Ensure uniqueness and sorting
+    tick_vals = sorted(set(tick_vals))
+    return tick_vals
+
+
+def make_yearly_count_histogram(summary, output_path, graph_index=3):
+    """
+    Make a histogram of yearly total meteorite counts (Fell + Found).
+
+    Each bin corresponds to a *log-binned* range of counts of meteorites in a year.
+    For example, separate ranges near 1, 2, 5, 10, 20, 50, 100, etc.
+
+    Below the graph, add a caption:
+      Graph X. <synopsis>
+    with "Graph X." in bold, font size 13.
+    """
+    counts_by_year_total = summary["counts_by_year_total"]
+    counts = counts_by_year_total.values
+
+    # Ensure strictly positive for log scale
+    counts = np.array(counts, dtype=float)
+    counts = counts[counts > 0]
+
+    min_count = int(counts.min())
+    max_count = int(counts.max())
+
+    plt.figure(figsize=(12, 6))
+    ax = plt.gca()
+
+    # -----------------------
+    # LOG-SPACED BINS
+    # -----------------------
+    # Use ~20 bins spaced in log space between min_count and max_count
+    bins = np.logspace(np.log10(min_count), np.log10(max_count), num=20)
+
+    ax.hist(counts, bins=bins, edgecolor="black", color="tab:green", alpha=0.8)
+
+    ax.set_xscale("log")
+    ax.set_xlabel("Meteorites per year (count, log scale)")
+    ax.set_ylabel("Number of years")
+    ax.set_title("Distribution of yearly meteorite counts (Fell + Found, log-binned)")
+
+    # Ticks at 1, 2, 5 * 10^k within range
+    tick_vals = _make_log_ticks(min_count, max_count)
+    ax.set_xticks(tick_vals)
+    ax.get_xaxis().set_major_formatter(plt.ScalarFormatter())
+    ax.tick_params(axis="x", rotation=45)
+
+    # -----------------------
+    # CAPTION BELOW GRAPH
+    # -----------------------
+    fig = plt.gcf()
+
+    synopsis = " Raw data - Histogram (log-binned) of yearly total meteorite counts (Fell + Found)."
+    caption = rf"$\bf{{Graph\ {graph_index}.}}$" + synopsis
+
+    plt.subplots_adjust(bottom=0.18)
+
+    fig.text(
+        0.03, 0.02,
+        caption,
+        ha="left",
+        va="bottom",
+        fontsize=13,
+    )
+
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+
+
 def main():
     # =========================
     # 2. Load data
@@ -242,6 +336,12 @@ def main():
     # =========================
     make_plot(summary, category_coords, OUTPUT_PNG_LOGX, log_x=True, graph_index=2)
     print(f"Log-x plot saved to: {OUTPUT_PNG_LOGX.resolve()}")
+
+    # =========================
+    # 6. Make yearly-count histogram (log-binned)
+    # =========================
+    make_yearly_count_histogram(summary, OUTPUT_PNG_HIST, graph_index=3)
+    print(f"Yearly-count histogram (log-binned) saved to: {OUTPUT_PNG_HIST.resolve()}")
 
     # Also print summary to console
     print(

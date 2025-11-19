@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meteorite Landings — EDA Phase 2 Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      margin: 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    p.subtitle {
+      text-align: left;
+      margin-top: 16px;
+      margin-bottom: 0;
+      font-size: 14px;
+      max-width: 98%;
+    }
+    .table-wrapper {
+      margin-top: 8px;
+
+      /* Outer border: thickness + color */
+      border: 4px solid #000000;   /* solid BLACK outer border */
+      border-radius: 10px;
+      padding: 0;
+      overflow: hidden;            /* keeps rounded corners clean */
+    }
+    .eda-table {
+      width: 100%;
+      border-collapse: collapse;   /* ensures borders touch cleanly */
+      background: #f5f4e8;         /* beige background for main table body */
+    }
+    .eda-table th {
+      background: #4ade80;         /* green header */
+      color: black;
+      font-weight: bold;
+      padding: 10px;
+      border-bottom: 2px solid black;
+      border-right: 1px solid black; /* vertical line between header columns */
+      text-align: center;
+    }
+    .eda-table th:last-child {
+      border-right: none;
+    }
+    .eda-table td {
+      padding: 8px;
+      border-bottom: 1px solid black;  /* horizontal row lines */
+      border-right: 1px solid black;   /* vertical column lines */
+      text-align: center;
+    }
+    .eda-table tr:last-child td {
+      border-bottom: none;
+    }
+    .eda-table td:last-child {
+      border-right: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Table 2. EDA Phase 2 — Yearly Count Summary</h2>
+
+  <div class="table-wrapper">
+    <table class="eda-table">
+      <tr>
+        <th>Feature</th>
+        <th>Total count (N)</th>
+        <th>Mean</th>
+        <th>Std. Dev.</th>
+        <th>Min</th>
+        <th>25% (Q1)</th>
+        <th>50% (Median)</th>
+        <th>75% (Q3)</th>
+        <th>Max</th>
+        <th>% of data within IQR</th>
+        <th># of Tukey outliers</th>
+      </tr>
+      
+    <tr>
+      <td>num_fell_found</td>
+      <td>264</td>
+      <td>172.06</td>
+      <td>506.40</td>
+      <td>1</td>
+      <td>2.00</td>
+      <td>10.00</td>
+      <td>22.25</td>
+      <td>3,323</td>
+      <td>54.55%</td>
+      <td>41</td>
+    </tr>
+    
+    </table>
+  </div>
+
+  <p class="subtitle">
+    Table 2. Summary statistics for yearly meteorite counts
+    (<code>num_fell_found</code>) after initial filtering, aggregation,
+    and EDA Phase 2 transformations. Quartiles (25%, 50%, 75%) correspond
+    to the empirical distribution of yearly counts. The IQR-based outlier
+    definition uses Tukey's rule: values below
+    Q1&nbsp;&minus;&nbsp;1.5&nbsp;&times;&nbsp;IQR or above
+    Q3&nbsp;&plus;&nbsp;1.5&nbsp;&times;&nbsp;IQR are flagged as outliers.
+    Total count (N) is the number of distinct years in the refactored dataset.
+  </p>
+
+</body>
+</html>

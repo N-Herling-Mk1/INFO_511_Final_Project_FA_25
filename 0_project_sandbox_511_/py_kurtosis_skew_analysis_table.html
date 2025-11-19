@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meteorite Landings — Skewness & Kurtosis Transform Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      margin: 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    p.subtitle {
+      text-align: left;
+      margin-top: 16px;
+      margin-bottom: 0;
+      font-size: 16px;
+      max-width: 98%;
+    }
+    .table-wrapper {
+      margin-top: 8px;
+      border: 4px solid #000000;   /* solid BLACK outer border */
+      border-radius: 10px;
+      padding: 0;
+      overflow: hidden;            /* keeps rounded corners clean */
+    }
+    .eda-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #f5f4e8;         /* beige background for main table body */
+    }
+    .eda-table th {
+      background: #4ade80;         /* green header */
+      color: black;
+      font-weight: bold;
+      padding: 10px;
+      border-bottom: 2px solid black;
+      border-right: 1px solid black;
+      text-align: center;
+    }
+    .eda-table th:last-child {
+      border-right: none;
+    }
+    .eda-table td {
+      padding: 8px;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      text-align: center;
+      font-size: 14px;
+    }
+    .eda-table tr:last-child td {
+      border-bottom: none;
+    }
+    .eda-table td:last-child {
+      border-right: none;
+      text-align: center;  /* center Notes column as well */
+      padding-left: 0;
+    }
+    code {
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Table 3. Skewness &amp; Kurtosis Transform Summary</h2>
+
+  <div class="table-wrapper">
+    <table class="eda-table">
+      <tr>
+        <th>Transform</th>
+        <th>Skewness</th>
+        <th>Kurtosis<br>(fisher=False)</th>
+        <th>Score<br><span style="font-size:12px;">|skew| + |kurtosis − 3|</span></th>
+        <th>Notes</th>
+      </tr>
+
+      <tr>
+        <td><strong>sqrt</strong></td>
+        <td>0.5761</td>
+        <td>2.5769</td>
+        <td>0.9991</td>
+        <td>Recommended transform (gentle for count data).</td>
+      </tr>
+        
+
+      <tr>
+        <td>cuberoot</td>
+        <td>0.2880</td>
+        <td>2.0930</td>
+        <td>1.1950</td>
+        <td>Reduces skew; tails slightly lighter than Normal.</td>
+      </tr>
+        
+
+      <tr>
+        <td>log1p</td>
+        <td>0.0076</td>
+        <td>1.7394</td>
+        <td>1.2682</td>
+        <td>Strong skew reduction; tails noticeably light.</td>
+      </tr>
+        
+
+      <tr>
+        <td>boxcox</td>
+        <td>-0.0550</td>
+        <td>1.7588</td>
+        <td>1.2962</td>
+        <td>Box–Cox (λ ≈ 0.105); similar to log, light tails.</td>
+      </tr>
+        
+
+      <tr>
+        <td>identity</td>
+        <td>1.5610</td>
+        <td>5.5396</td>
+        <td>4.1006</td>
+        <td>Original shape; strongly right-skewed, heavy tails.</td>
+      </tr>
+        
+    </table>
+  </div>
+
+  <p class="subtitle">
+    <b>Table 3.</b> Note. For a perfectly Normal distribution, skewness ≈ 0 and kurtosis ≈ 3
+    (mesokurtic), per INFO 511 Lecture 4. The score
+    <code>|skew| + |kurtosis − 3|</code> is a simple heuristic: smaller values
+    indicate a distribution closer to Normal in both asymmetry and tailedness.
+    The square-root transform (<code>sqrt</code>) provides the best balance for
+    these meteorite yearly counts (moderate skew reduction and kurtosis near 3),
+    and is therefore recommended as the primary Normality-oriented transform.
+  </p>
+
+</body>
+</html>
